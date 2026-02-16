@@ -1,0 +1,14 @@
+Steps to create the following project :
+
+1. Write code on setup.py and pyproject.toml file to import local packages
+2. Create a virtual environment, activate it, and install the required dependencies from 
+   requirements.txt
+   conda create -n housing python=3.10 -y
+   conda activate housing
+   add required modules to requirements.txt
+   Do "pip install -r requirements.txt"
+   Note : Install Anaconda if not already installed
+   conda env remove -n proj1 (If want to remove existing project)
+   add required modules to requirements.txt
+   Do "pip install -r requirements.txt"
+3. Do a "pip list" on terminal to make sure you have local packages installed.
