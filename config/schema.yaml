@@ -21,3 +21,19 @@ categorical_columns:
   - size
   - society
   - total_sqft
+
+processed_numerical_columns:
+  - total_sqft
+  - bath
+  - bhk
+  - balcony
+  - location_target_enc
+  - sqft_per_bhk
+  - bath_per_bhk
+  - total_sqft_log  
+
+processed_categorical_columns:
+  - area_type
+  - has_society
+  - location_grouped
+  - extra_bath  

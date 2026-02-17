@@ -40,4 +40,18 @@ class DataTransformationConfig:
 class FeatureEngineerConfig:
     feature_engineer_dir: str = os.path.join(training_pipeline_config.artifact_dir, FEATURE_ENGINEER_DIR_NAME)
     featured_train_file_path: str = os.path.join(feature_engineer_dir, FEATURED_TRAIN_FILE_NAME)
-    featured_test_file_path: str = os.path.join(feature_engineer_dir, FEATURED_TEST_FILE_NAME)      
+    featured_test_file_path: str = os.path.join(feature_engineer_dir, FEATURED_TEST_FILE_NAME)   
+    
+@dataclass
+class ModelTrainerConfig:
+    model_trainer_dir: str = os.path.join(training_pipeline_config.artifact_dir, MODEL_TRAINER_DIR_NAME)
+    trained_model_file_path: str = os.path.join(model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, MODEL_FILE_NAME)
+    expected_r2_score: float = MODEL_TRAINER_EXPECTED_SCORE
+    model_config_file_path: str = MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
+    _n_estimators = MODEL_TRAINER_N_ESTIMATORS
+    _min_samples_split = MODEL_TRAINER_MIN_SAMPLES_SPLIT
+    _min_samples_leaf = MODEL_TRAINER_MIN_SAMPLES_LEAF
+    _max_depth = MIN_SAMPLES_SPLIT_MAX_DEPTH
+    _criterion = MIN_SAMPLES_SPLIT_CRITERION
+    _max_features = MODEL_TRAINER_MAX_FEATURES
+    _random_state = MIN_SAMPLES_SPLIT_RANDOM_STATE       

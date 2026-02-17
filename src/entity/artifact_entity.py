@@ -20,4 +20,14 @@ class DataTransformationArtifact:
 @dataclass
 class FeatureEngineerArtifact:
     featured_train_file_path:str
-    featured_test_file_path:str    
+    featured_test_file_path:str   
+    
+@dataclass
+class RegressionMetricArtifact:
+    rmse:float
+    r2_score:float
+
+@dataclass
+class ModelTrainerArtifact:
+    trained_model_file_path:str 
+    metric_artifact: RegressionMetricArtifact     
