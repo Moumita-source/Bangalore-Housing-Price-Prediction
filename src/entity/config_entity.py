@@ -26,4 +26,18 @@ class DataIngestionConfig:
 @dataclass
 class DataValidationConfig:
     data_validation_dir: str = os.path.join(training_pipeline_config.artifact_dir, DATA_VALIDATION_DIR_NAME)
-    validation_report_file_path: str = os.path.join(data_validation_dir, DATA_VALIDATION_REPORT_FILE_NAME)    
+    validation_report_file_path: str = os.path.join(data_validation_dir, DATA_VALIDATION_REPORT_FILE_NAME) 
+    
+@dataclass
+class DataTransformationConfig:
+    data_transformation_dir: str = os.path.join(training_pipeline_config.artifact_dir, DATA_TRANSFORMATION_DIR_NAME)
+    transformed_train_file_path: str = os.path.join(data_transformation_dir,
+                                                    TRANSFORMED_TRAIN_FILE_NAME)
+    transformed_test_file_path: str = os.path.join(data_transformation_dir,
+                                                   TRANSFORMED_TEST_FILE_NAME)   
+    
+@dataclass
+class FeatureEngineerConfig:
+    feature_engineer_dir: str = os.path.join(training_pipeline_config.artifact_dir, FEATURE_ENGINEER_DIR_NAME)
+    featured_train_file_path: str = os.path.join(feature_engineer_dir, FEATURED_TRAIN_FILE_NAME)
+    featured_test_file_path: str = os.path.join(feature_engineer_dir, FEATURED_TEST_FILE_NAME)      

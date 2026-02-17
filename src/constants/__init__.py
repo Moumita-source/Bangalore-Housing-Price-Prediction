@@ -11,7 +11,7 @@ ARTIFACT_DIR: str = "artifact"
 
 MODEL_FILE_NAME = "model.pkl"
 
-TARGET_COLUMN = "Response"
+TARGET_COLUMN = "price"
 CURRENT_YEAR = date.today().year
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 
@@ -48,6 +48,39 @@ Data Transformation ralated constant start with DATA_TRANSFORMATION VAR NAME
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+LOCATION_THRESHOLD: str = "20"
+TRANSFORMED_TRAIN_FILE_NAME: str = "transformed_train.csv"
+TRANSFORMED_TEST_FILE_NAME: str = "transformed_test.csv"
+CONVERSION_FACTORS = {
+    # Square meters
+    "sq. meter": 10.7639,
+    "square meter": 10.7639,
+    "sq.meter": 10.7639,
+    "sq meter": 10.7639,
+
+    # Square yards
+    "sq. yard": 9.0,
+    "sq.yard": 9.0,
+    "square yard": 9.0,
+    "sq yard": 9.0,
+
+    # Acres
+    "acre": 43560,
+    "acres": 43560,
+
+    # Other units
+    "perch": 272.25,
+    "guntha": 1089,
+    "cents": 435.6,
+    "ground": 2400,
+}
+
+"""
+FEATURE ENGINEER ralated constant start with FEATURE_ENGINEER VAR NAME
+"""
+FEATURE_ENGINEER_DIR_NAME: str = "feature_engineer"
+FEATURED_TRAIN_FILE_NAME: str = "featured_train.csv"
+FEATURED_TEST_FILE_NAME: str = "featured_test.csv"
 
 """
 MODEL TRAINER related constant start with MODEL_TRAINER var name
