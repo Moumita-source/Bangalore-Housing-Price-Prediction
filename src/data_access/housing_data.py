@@ -5,7 +5,7 @@ from typing import Optional
 import threading
 
 from src.configuration.mongo_db_connection import MongoDBClient
-from src.constants import DATABASE_NAME
+from src.constants import DATABASE_NAME, DROP_ID
 from src.exception import MyException
 
 class HousingData:
@@ -50,6 +50,8 @@ class HousingData:
 
             # Convert to DataFrame
             df = pd.DataFrame(data)
+            if DROP_ID in df.columns.to_list():
+                df = df.drop(columns=[DROP_ID], axis=1)
             return df
 
         except Exception as e:

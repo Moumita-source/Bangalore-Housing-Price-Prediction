@@ -1,0 +1,23 @@
+columns:
+  - area_type: category
+  - availability: category
+  - location: category
+  - size: category
+  - society: category
+  - total_sqft: category
+  - bath: float
+  - balcony: float
+  - price: float
+
+numerical_columns:
+  - bath
+  - balcony
+  - price
+
+categorical_columns:
+  - area_type
+  - availability
+  - location
+  - size
+  - society
+  - total_sqft
