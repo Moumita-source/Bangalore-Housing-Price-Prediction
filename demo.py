@@ -11,4 +11,9 @@
 #     a = 1 + 'Z'
 # except Exception as e:
 #     logging.info(e)
-#     raise MyException(e, sys) from e    
+#     raise MyException(e, sys) from e  
+
+from src.pipeline.training_pipeline import TrainPipeline
+
+pipeline = TrainPipeline()
+pipeline.run_pipeline()  
