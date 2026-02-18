@@ -7,7 +7,7 @@ from src.entity.config_entity import DataTransformationConfig
 from src.entity.artifact_entity import DataTransformationArtifact, DataIngestionArtifact, DataValidationArtifact
 from src.exception import MyException
 from src.logger import logging
-from src.utils.main_utils import read_yaml_file
+from src.utils.main_utils import read_yaml_file, save_json_object
 
 
 class DataTransformation:
@@ -120,7 +120,7 @@ class DataTransformation:
         train = train.drop(columns=[col])
         test = test.drop(columns=[col] )
         
-        return train, test                 
+        return train, test, mapping, global_mean                 
      
     def process_location_feature(self, df):
         """
@@ -188,7 +188,8 @@ class DataTransformation:
         1. Extract the numeric values from the total_sqrt with various case conversion into its sqft unit
         """
         df["total_sqft_num"] = df["total_sqft"].apply(self.convert_total_sqft)
-        df = df.dropna(subset=["total_sqft_num"])
+        median_sqft = df["total_sqft_num"].median() 
+        df["total_sqft_num"] = df["total_sqft_num"].fillna(median_sqft)
         df = df.drop(columns=["total_sqft"])
         df = df.rename(columns={"total_sqft_num": "total_sqft"})
         return df
@@ -253,11 +254,10 @@ class DataTransformation:
             test_df = self.process_balcony_feature(test_df)
             test_df = self.process_availability_feature(test_df)
             test_df = self.process_total_sqft_feature(test_df)
-            test_df = self.remove_outliers(test_df)
             logging.info("Custom transformations applied to train and test data")
             
             logging.info("Start target encoding applied to the train and test data")
-            train_df, test_df = self.target_encode(train_df, test_df, 'location')
+            train_df, test_df, mapping, global_mean = self.target_encode(train_df, test_df, 'location')
             logging.info("Got target encoding applied to the train and test data")
             logging.info("Data transformation completed")
             
@@ -266,10 +266,13 @@ class DataTransformation:
             logging.info(f"Exporting transformed train and test file path.")
             train_df.to_csv(self.data_transformation_config.transformed_train_file_path,index=False,header=True)
             test_df.to_csv(self.data_transformation_config.transformed_test_file_path,index=False,header=True)
+            encoding_info = {"mapping": mapping, "global_mean": global_mean}
+            save_json_object(encoding_info, self.data_transformation_config.target_encoded_mapping_path)
             
             return DataTransformationArtifact(
                 transformed_train_file_path= self.data_transformation_config.transformed_train_file_path,
-                transformed_test_file_path=self.data_transformation_config.transformed_test_file_path
+                transformed_test_file_path=self.data_transformation_config.transformed_test_file_path,
+                target_encoded_mapping_file_path= self.data_transformation_config.target_encoded_mapping_path
             )
             
         except Exception as e:

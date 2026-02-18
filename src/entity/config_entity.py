@@ -35,6 +35,8 @@ class DataTransformationConfig:
                                                     TRANSFORMED_TRAIN_FILE_NAME)
     transformed_test_file_path: str = os.path.join(data_transformation_dir,
                                                    TRANSFORMED_TEST_FILE_NAME)   
+    target_encoded_mapping_path: str = os.path.join(data_transformation_dir,
+                                                    MAPPING_TARGET_ENCODED_FILE_NAME)
     
 @dataclass
 class FeatureEngineerConfig:
@@ -54,4 +56,15 @@ class ModelTrainerConfig:
     _max_depth = MIN_SAMPLES_SPLIT_MAX_DEPTH
     _criterion = MIN_SAMPLES_SPLIT_CRITERION
     _max_features = MODEL_TRAINER_MAX_FEATURES
-    _random_state = MIN_SAMPLES_SPLIT_RANDOM_STATE       
+    _random_state = MIN_SAMPLES_SPLIT_RANDOM_STATE      
+    
+@dataclass
+class ModelEvaluationConfig:
+    changed_threshold_score: float = MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_key_path: str = MODEL_FILE_NAME
+
+@dataclass
+class ModelPusherConfig:
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_key_path: str = MODEL_FILE_NAME     

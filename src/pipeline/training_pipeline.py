@@ -7,24 +7,24 @@ from src.components.data_validation import DataValidation
 from src.components.data_transformation import DataTransformation
 from src.components.feature_engineering import FeatureEngineering
 from src.components.model_trainer import ModelTrainer
-# from src.components.model_evaluation import ModelEvaluation
-# from src.components.model_pusher import ModelPusher
+from src.components.model_evaluation import ModelEvaluation
+from src.components.model_pusher import ModelPusher
 
 from src.entity.config_entity import (DataIngestionConfig,
                                           DataValidationConfig,
                                           DataTransformationConfig,
                                           FeatureEngineerConfig,
-                                          ModelTrainerConfig)
-                                        #   ModelEvaluationConfig,
-                                        #   ModelPusherConfig)
+                                          ModelTrainerConfig,
+                                          ModelEvaluationConfig,
+                                          ModelPusherConfig)
                                           
 from src.entity.artifact_entity import (DataIngestionArtifact,
                                             DataValidationArtifact,
                                             DataTransformationArtifact,
                                             FeatureEngineerArtifact,
-                                            ModelTrainerArtifact)
-                                            # ModelEvaluationArtifact,
-                                            # ModelPusherArtifact)
+                                            ModelTrainerArtifact,
+                                            ModelEvaluationArtifact,
+                                            ModelPusherArtifact)
 
 
 
@@ -35,8 +35,8 @@ class TrainPipeline:
         self.data_transformation_config = DataTransformationConfig()
         self.feature_engineering_config = FeatureEngineerConfig()
         self.model_trainer_config = ModelTrainerConfig()
-        # self.model_evaluation_config = ModelEvaluationConfig()
-        # self.model_pusher_config = ModelPusherConfig()
+        self.model_evaluation_config = ModelEvaluationConfig()
+        self.model_pusher_config = ModelPusherConfig()
 
 
     
@@ -113,7 +113,35 @@ class TrainPipeline:
             return model_trainer_artifact
 
         except Exception as e:
-            raise MyException(e, sys)    
+            raise MyException(e, sys)   
+        
+    def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact, data_transformation_artifact: DataTransformationArtifact,
+                               model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting modle evaluation
+        """
+        try:
+            model_evaluation = ModelEvaluation(data_ingestion_artifact=data_ingestion_artifact,
+                                               data_transformation_artifact=data_transformation_artifact,
+                                               model_evaluation_config= self.model_evaluation_config,
+                                               model_trainer_artifact=model_trainer_artifact)
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+            return model_evaluation_artifact
+        except Exception as e:
+            raise MyException(e, sys)  
+        
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting model pushing
+        """
+        try:
+            model_pusher = ModelPusher(model_evaluation_artifact=model_evaluation_artifact,
+                                       model_pusher_config=self.model_pusher_config
+                                       )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            return model_pusher_artifact
+        except Exception as e:
+            raise MyException(e, sys)       
         
     def run_pipeline(self, ) -> None:
         """
@@ -126,12 +154,13 @@ class TrainPipeline:
                 data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact = data_validation_artifact)
             feature_engineering_artifact = self.start_feature_engineering(data_transformation_artifact = data_transformation_artifact)
             model_trainer_artifact = self.start_model_trainer(feature_engineering_artifact = feature_engineering_artifact)
-            # model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
-            #                                                         model_trainer_artifact=model_trainer_artifact)
-            # if not model_evaluation_artifact.is_model_accepted:
-            #     logging.info(f"Model not accepted.")
-            #     return None
-            # model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
+                                                                    data_transformation_artifact= data_transformation_artifact,
+                                                                    model_trainer_artifact=model_trainer_artifact)
+            if not model_evaluation_artifact.is_model_accepted:
+                logging.info(f"Model not accepted.")
+                return None
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
             
         except Exception as e:
             raise MyException(e, sys)    

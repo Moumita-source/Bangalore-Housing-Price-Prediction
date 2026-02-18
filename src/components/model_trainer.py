@@ -129,7 +129,7 @@ class ModelTrainer:
             
             # Save the final model object that includes both preprocessing and the trained model
             logging.info("Saving new model as performace is better than previous one.")
-            my_model = MyModel(preprocessing_object= preprocessor, trained_model_object= trained_model)
+            my_model = MyModel(trained_model_object= trained_model)
             save_object(self.model_trainer_config.trained_model_file_path, my_model)
             logging.info("Saved final model object that includes both preprocessing and the trained model")
             

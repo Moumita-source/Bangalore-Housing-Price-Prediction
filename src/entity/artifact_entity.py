@@ -15,7 +15,8 @@ class DataValidationArtifact:
 @dataclass
 class DataTransformationArtifact:
     transformed_train_file_path:str
-    transformed_test_file_path:str    
+    transformed_test_file_path:str  
+    target_encoded_mapping_file_path: str
     
 @dataclass
 class FeatureEngineerArtifact:
@@ -31,3 +32,15 @@ class RegressionMetricArtifact:
 class ModelTrainerArtifact:
     trained_model_file_path:str 
     metric_artifact: RegressionMetricArtifact     
+    
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted:bool
+    changed_accuracy:float
+    s3_model_path:str 
+    trained_model_path:str
+
+@dataclass
+class ModelPusherArtifact:
+    bucket_name:str
+    s3_model_path:str    

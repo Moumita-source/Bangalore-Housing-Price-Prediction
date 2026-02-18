@@ -33,7 +33,7 @@ DATA_INGESTION_COLLECTION_NAME: str = "Housing-Data"
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
 DATA_INGESTION_INGESTED_DIR: str = "ingested"
-DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.20
+DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = 0.10
 DROP_ID: str = "_id"
 
 """
@@ -51,6 +51,7 @@ DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
 LOCATION_THRESHOLD: str = "20"
 TRANSFORMED_TRAIN_FILE_NAME: str = "transformed_train.csv"
 TRANSFORMED_TEST_FILE_NAME: str = "transformed_test.csv"
+MAPPING_TARGET_ENCODED_FILE_NAME: str = "location_target_mapping.json"
 CONVERSION_FACTORS = {
     # Square meters
     "sq. meter": 10.7639,

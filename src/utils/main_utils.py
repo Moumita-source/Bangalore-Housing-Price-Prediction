@@ -4,6 +4,7 @@ import sys
 import numpy as np
 import dill
 import yaml
+import json
 
 from src.exception import MyException
 from src.logger import logging
@@ -28,7 +29,28 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False) -> N
             yaml.dump(content, file)
     except Exception as e:
         raise MyException(e, sys) from e
+    
+def save_json_object(obj: dict, file_path: str) -> str:
+    """
+    Save a Python dictionary as a JSON file at the given file path.
+    """
+    # Save JSON
+    with open(file_path, "w") as f:
+        json.dump(obj, f, indent=4)
 
+    return file_path
+
+def load_json_object(file_path: str) -> dict:
+    """
+    Load a JSON file from the given file path and return as a Python dictionary.
+    """
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"JSON file not found: {file_path}")
+
+    with open(file_path, "r") as f:
+        obj = json.load(f)
+
+    return obj    
 
 def load_object(file_path: str) -> object:
     """

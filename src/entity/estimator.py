@@ -8,12 +8,10 @@ from src.exception import MyException
 from src.logger import logging
 
 class MyModel:
-    def __init__(self, preprocessing_object: Pipeline, trained_model_object: object):
+    def __init__(self, trained_model_object: Pipeline):
         """
-        :param preprocessing_object: Input Object of preprocesser
-        :param trained_model_object: Input Object of trained model 
+        :param trained_model_object: The full pipeline (preprocessor + model)
         """
-        self.preprocessing_object = preprocessing_object
         self.trained_model_object = trained_model_object
 
     def predict(self, dataframe: pd.DataFrame) -> DataFrame:
@@ -23,13 +21,8 @@ class MyModel:
         """
         try:
             logging.info("Starting prediction process.")
-
-            # Step 1: Apply scaling transformations using the pre-trained preprocessing object
-            transformed_feature = self.preprocessing_object.transform(dataframe)
-
-            # Step 2: Perform prediction using the trained model
-            logging.info("Using the trained model to get predictions")
-            predictions = self.trained_model_object.predict(transformed_feature)
+            predictions = self.trained_model_object.predict(dataframe)
+            logging.info("Prediction completed")
 
             return predictions
 
