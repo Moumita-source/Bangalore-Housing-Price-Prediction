@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bengaluru House Price Prediction</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bengaluru House Price Prediction</h1>
+        <p>Enter the property details to get an estimated price (in Lakhs)</p>
+
+        <form method="post" action="/">
+            <!-- Area Type (dropdown - common values from dataset) -->
+            <div class="form-group">
+                <label for="area_type">Area Type:</label>
+                <select id="area_type" name="area_type" required>
+                    <option value="Super built-up  Area">Super built-up Area</option>
+                    <option value="Built-up  Area">Built-up Area</option>
+                    <option value="Plot  Area">Plot Area</option>
+                    <option value="Carpet  Area">Carpet Area</option>
+                </select>
+            </div>
+
+            <!-- Availability (text - user can enter "Ready To Move", dates, etc.) -->
+            <div class="form-group">
+                <label for="availability">Availability:</label>
+                <input type="text" id="availability" name="availability" 
+                       placeholder="e.g. Ready To Move / Dec-2024" required>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" 
+                       placeholder="e.g. Whitefield, Electronic City, HSR Layout" required>
+            </div>
+
+            <!-- Size (e.g. 3 BHK, 2 BHK) -->
+            <div class="form-group">
+                <label for="size">Size (BHK):</label>
+                <input type="text" id="size" name="size" 
+                       placeholder="e.g. 3 BHK, 2 BHK" required>
+            </div>
+
+            <!-- Society (optional) -->
+            <div class="form-group">
+                <label for="society">Society (optional):</label>
+                <input type="text" id="society" name="society" 
+                       placeholder="e.g. Sobha Classic, Gopalan Atlantis">
+            </div>
+
+            <!-- Total Square Feet -->
+            <div class="form-group">
+                <label for="total_sqft">Total Square Feet:</label>
+                <input type="number" step="0.01" id="total_sqft" name="total_sqft" 
+                       placeholder="e.g. 1500" required>
+            </div>
+
+            <!-- Bathrooms -->
+            <div class="form-group">
+                <label for="bath">Number of Bathrooms:</label>
+                <input type="number" step="0.5" id="bath" name="bath" 
+                       min="1" placeholder="e.g. 2" required>
+            </div>
+
+            <!-- Balconies -->
+            <div class="form-group">
+                <label for="balcony">Number of Balconies:</label>
+                <input type="number" id="balcony" name="balcony" 
+                       min="0" placeholder="e.g. 1 or 2" required>
+            </div>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        <!-- Result Section -->
+        {% if prediction %}
+            <div class="result">
+                <h2>Estimated Price</h2>
+                <p class="price">{{ prediction | safe }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <h3>Error</h3>
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

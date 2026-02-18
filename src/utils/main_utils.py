@@ -40,6 +40,40 @@ def save_json_object(obj: dict, file_path: str) -> str:
 
     return file_path
 
+import os
+import json
+
+def save_target_encoded_json_object(obj: dict, file_path: str) -> None:
+    """
+    Save a dictionary as a JSON file at the given file_path.
+    Creates directories if they don't exist.
+    """
+    try:
+        # Ensure directory exists
+        dir_name = os.path.dirname(file_path)
+        os.makedirs(dir_name, exist_ok=True)
+
+        # Save JSON
+        with open(file_path, "w") as f:
+            json.dump(obj, f, indent=4)
+
+    except Exception as e:
+        raise RuntimeError(f"Error saving JSON object to {file_path}: {e}")
+
+
+def load_target_encoded_json_object(file_path: str) -> dict:
+    """
+    Load a JSON file from the given file_path.
+    """
+    try:
+        with open(file_path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        raise RuntimeError(f"JSON file not found at {file_path}")
+    except Exception as e:
+        raise RuntimeError(f"Error loading JSON object from {file_path}: {e}")
+
+
 def load_json_object(file_path: str) -> dict:
     """
     Load a JSON file from the given file path and return as a Python dictionary.

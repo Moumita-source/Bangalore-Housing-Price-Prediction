@@ -216,7 +216,7 @@ class ModelEvaluation:
             return None
         except Exception as e:
             raise MyException(e, sys) from e
-     
+      
     def evaluate_model(self) -> EvalauteModelResponse:
         """
         Method Name :   evaluate_model

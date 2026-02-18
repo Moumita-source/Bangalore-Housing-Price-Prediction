@@ -7,7 +7,7 @@ from src.entity.config_entity import DataTransformationConfig
 from src.entity.artifact_entity import DataTransformationArtifact, DataIngestionArtifact, DataValidationArtifact
 from src.exception import MyException
 from src.logger import logging
-from src.utils.main_utils import read_yaml_file, save_json_object
+from src.utils.main_utils import read_yaml_file, save_json_object, save_target_encoded_json_object
 
 
 class DataTransformation:
@@ -268,6 +268,7 @@ class DataTransformation:
             test_df.to_csv(self.data_transformation_config.transformed_test_file_path,index=False,header=True)
             encoding_info = {"mapping": mapping, "global_mean": global_mean}
             save_json_object(encoding_info, self.data_transformation_config.target_encoded_mapping_path)
+            save_target_encoded_json_object(encoding_info, "updated_target_mapping/mapitems")
             
             return DataTransformationArtifact(
                 transformed_train_file_path= self.data_transformation_config.transformed_train_file_path,

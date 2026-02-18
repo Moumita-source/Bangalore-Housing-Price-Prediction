@@ -95,3 +95,7 @@ Steps to create the following project :
         and push model from AWS S3 bucket. 
       * Inside "entity" dir we will have an "s3_estimator.py" file containing all the func to pull/push
         data from s3 bucket.
+
+
+25. Create the code structure of "Prediction Pipeline" and setup your app.py
+26. Add "static" and "template" dir to the project.        
