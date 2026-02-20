@@ -1,5 +1,5 @@
 import os
-from datetime import date
+from datetime import date, datetime
 
 # For MongoDB connection
 DATABASE_NAME = "Housing"
@@ -9,7 +9,8 @@ MONGODB_URL_KEY = "MONGODB_URL"
 PIPELINE_NAME: str = ""
 ARTIFACT_DIR: str = "artifact"
 
-MODEL_FILE_NAME = "model.pkl"
+version = datetime.now().strftime("%Y%m%d")
+MODEL_FILE_NAME = f"model_{version}.pkl"
 
 TARGET_COLUMN = "price"
 CURRENT_YEAR = date.today().year
