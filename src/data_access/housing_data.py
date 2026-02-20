@@ -50,6 +50,7 @@ class HousingData:
 
             # Convert to DataFrame
             df = pd.DataFrame(data)
+            df = df.drop_duplicates()
             if DROP_ID in df.columns.to_list():
                 df = df.drop(columns=[DROP_ID], axis=1)
             return df

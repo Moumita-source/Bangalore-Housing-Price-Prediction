@@ -1,6 +1,6 @@
 ipykernel
 pandas
-numpy
+numpy<2.0   
 matplotlib
 plotly
 seaborn
@@ -11,6 +11,7 @@ dill
 certifi
 PyYAML
 boto3
+evidently==0.2.8
 mypy-boto3-s3
 botocore
 fastapi
