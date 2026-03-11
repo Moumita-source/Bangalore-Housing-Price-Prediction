@@ -1,6 +1,6 @@
 # Bangalore House Price Prediction – End-to-End ML Project
 
-Application Link : http://98.93.93.36:5000/
+Application Link : http://3.239.118.240:5000/
 
 An automated, production-grade house price prediction system for Bangalore real estate using real-world data (~13.3k records). From raw messy data to a drift-resilient, FastAPI-deployed model with full MLOps pipeline.
 
