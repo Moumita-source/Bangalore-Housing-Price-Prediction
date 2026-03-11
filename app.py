@@ -9,6 +9,7 @@ import pandas as pd
 from src.constants import APP_HOST, APP_PORT
 from typing import Optional
 from src.logger import logging
+import time
 
 # Import your prediction classes (adjust import path if needed)
 from src.pipeline.prediction_pipeline import HousingData, HousingDataPredictor
@@ -102,14 +103,18 @@ class DataForm:
             
             # Convert form data into a DataFrame for the model
             housing_df = housing_data.get_housing_input_data_frame()
-            logging.info(f"The dataframe is : {housing_df}")
             
+            # Measure latency 
+            start_time = time.perf_counter()
             # Initialize the prediction pipeline
             model_predictor = HousingDataPredictor()
             
             # Make a prediction and retrieve the result
             value = model_predictor.predict(dataframe= housing_df)[0]
             value = f"{value:.2f} Lakhs"
+            end_time = time.perf_counter()
+            latency_ms = (end_time - start_time) * 1000
+            logging.info(f"Latency observed in the prediction in ms : {latency_ms:.2f} ms")
             
             # Render the same HTML page with the prediction result
             return templates.TemplateResponse(

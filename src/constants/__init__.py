@@ -9,9 +9,10 @@ MONGODB_URL_KEY = "MONGODB_URL"
 PIPELINE_NAME: str = ""
 ARTIFACT_DIR: str = "artifact"
 
-version = datetime.now().strftime("%Y%m%d")
-MODEL_FILE_NAME = f"model_{version}.pkl"
+# version = datetime.now().strftime("%Y%m%d")
+# MODEL_FILE_NAME = f"model_{version}.pkl"
 
+MODEL_FILE_NAME = "model.pkl"
 TARGET_COLUMN = "price"
 CURRENT_YEAR = date.today().year
 PREPROCSSING_OBJECT_FILE_NAME = "preprocessing.pkl"
