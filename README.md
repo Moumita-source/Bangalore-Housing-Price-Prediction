@@ -60,3 +60,8 @@ An automated, production-grade house price prediction system for Bangalore real 
 - **Logging & Monitoring**: Custom structured logging  
 - **Frontend**: HTML + CSS
 
+## 🛠️ Deployed
+
+-- **Docker ECR , EC2 instance
+
+
