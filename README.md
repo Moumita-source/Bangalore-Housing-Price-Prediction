@@ -62,6 +62,6 @@ An automated, production-grade house price prediction system for Bangalore real 
 
 ## 🛠️ Deployed
 
--- **Docker ECR , EC2 instance
+-- **Docker** ECR , EC2 instance
 
 
